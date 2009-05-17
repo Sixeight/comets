@@ -3,3 +3,10 @@
 
 Comets is a simple chat application using Sinatra
 
+== Installation
+
+  $ mkdir db
+  $ rackup -s mongrel -p 4567 -E none config.ru
+
+access http://localhost:4567
+
