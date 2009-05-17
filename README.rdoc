@@ -1,7 +1,7 @@
 
 = Comets
 
-Comets is a simple chat application using Sinatra
+Comets is a simple chat application using comet.
 
 == Installation
 
