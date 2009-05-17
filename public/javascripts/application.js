@@ -3,7 +3,9 @@ var reload = function() {
   $.ajax({
     url: '/serv',
     success: function(res) {
-      $('#log').html(res);
+      if (res) {
+        $('#log ul').html(res);
+      }
       reload();
     },
     error: function() {
@@ -13,9 +15,10 @@ var reload = function() {
 }
 $(function() {
   reload();
-  $('form').submit(function() {
+  $('#forms form#statement').submit(function() {
     var input = $(this).find('input#say');
     var say = input.val()
+    if (say == '') { return false; }
     input.val('');
     $.post('/say', { say: say }, function() {});
     return false;

@@ -5,7 +5,9 @@ require 'app'
 
 trap :USR1 do
   ENV['comets.done'] = 'true'
-  ENV['comets.msg'] = File.open('log').read
+  statements = Statements.reverse_order(:created_at).
+    limit(15).all.map {|s| "<li>(#{s.time}) #{s.user}: #{s.text}</li>\n" }
+  ENV['comets.msg'] = statements.join
 end
 
 class Serv

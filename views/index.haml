@@ -1,7 +1,16 @@
+
 #log
-  - @log.each do |log|
-    != log
+  %ul
+    - @log.each do |log|
+      != log
 #forms
-  %form{ :method => 'pos', :method => 'post' }
-    %input#say{ :name => 'say', :size => 50 }
-    %input{ :type => 'submit', :value => 'say' }
+  - if session[:name]
+    %form#statement
+      %input#say{ :name => 'say', :size => 50 }
+      %input{ :type => 'submit', :value => 'say' }
+      %a{ :href => 'logout' } logout
+  - else
+    %form#login{ :method => 'post', :action => '/login' }
+      %input{ :name => 'name', :size => 25 }
+      %input{ :type => 'submit', :value => 'login' }
+
