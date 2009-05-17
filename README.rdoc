@@ -1,0 +1,5 @@
+
+= Comets
+
+Comets is a simple chat application using Sinatra
+
