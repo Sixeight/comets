@@ -1,12 +1,40 @@
 #! /usr/bin/env ruby
 # -*- coding: utf-9 -*-
 
+require 'rubygems'
+require 'sinatra'
 require 'app'
+
+module CometsUtil
+  def statement_filter(text)
+    res = Rack::Utils.escape_html(text)
+    res = case text
+      when %r|(http://[^ ]+)|
+        if %w[ png gif jpg ].include? $1[-3..-1]
+          %[#{$`}<img src="#{$1}" width="300" />#{$'}]
+        else
+          %[#{$`}<a href="#{$1}">#{$1}</a>#{$'}]
+        end
+      else
+        text
+      end
+    res
+  end
+  module_function :statement_filter
+end
+
+helpers do
+  include CometsUtil
+end
 
 trap :USR1 do
   ENV['comets.done'] = 'true'
+
   statements = Statements.reverse_order(:created_at).
-    limit(15).all.map {|s| "<li>(#{s.time}) #{s.user}: #{s.text}</li>\n" }
+    limit(15).all.map {|s|
+      text = CometsUtil.statement_filter(s.text)
+      "<li>(#{s.time}) #{s.user}: #{text}</li>\n"
+    }
   ENV['comets.msg'] = statements.join
 end
 

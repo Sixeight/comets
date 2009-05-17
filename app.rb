@@ -15,7 +15,10 @@ enable :sessions
 
 get '/' do
   statements = Statements.reverse_order(:created_at).
-    limit(15).all.map {|s| "<li>(#{s.time}) #{s.user}: #{s.text}</li>\n" }
+    limit(15).all.map {|s|
+      text = statement_filter(s.text)
+      "<li>(#{s.time}) #{s.user}: #{text}</li>\n"
+    }
   @log = statements
   haml :index
 end
