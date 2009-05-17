@@ -1,0 +1,7 @@
+#log
+  - @log.each do |log|
+    != log
+#forms
+  %form{ :method => 'pos', :method => 'post' }
+    %input#say{ :name => 'say', :size => 50 }
+    %input{ :type => 'submit', :value => 'say' }
