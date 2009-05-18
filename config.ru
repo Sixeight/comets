@@ -15,6 +15,10 @@ module CometsUtil
         else
           %[#{$`}<a href="#{$1}">#{$1}</a>#{$'}]
         end
+      when %r[\A# ]
+        %[<span class="comment">#{text}</span>]
+      when %r[\A#! ]
+        %[<span class="shout">#{text[3..-1]}</span>]
       else
         text
       end
