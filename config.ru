@@ -10,10 +10,15 @@ module CometsUtil
     res = Rack::Utils.escape_html(text)
     res = case text
       when %r|(http://[^ ]+)|
-        if %w[ png gif jpg ].include? $1[-3..-1]
-          %[#{$`}<img src="#{$1}" width="300" />#{$'}]
+        before = $`
+        after  = $'
+        uri    = $1
+        if %w[ png gif jpg ].include? uri[-3..-1]
+          %[#{before}<img src="#{uri}" width="300" />#{after}]
+        elsif %r|gist.github.com/\d+\z| =~ uri
+          %[<script type="text/javascript" src="#{uri}.js"></script>]
         else
-          %[#{$`}<a href="#{$1}">#{$1}</a>#{$'}]
+          %[#{before}<a href="#{uri}">#{uri}</a>#{after}]
         end
       else
         text
