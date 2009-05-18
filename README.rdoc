@@ -1,4 +1,4 @@
-!!! WARNING: Don't use in fact. !!!
+== WARNING: Don't use this in practice. Comets has many security risks.
 
 = Comets
 
