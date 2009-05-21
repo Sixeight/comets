@@ -25,7 +25,11 @@ class Statements < Sequel::Model
   end
 
   def time
-    created_at.strftime('%H:%M')
+    if created_at > (Time.now - 86400)
+      created_at.strftime('%H:%M')
+    else
+      created_at.strftime('%m/%d %H:%M')
+    end
   end
 end
 

@@ -1,14 +1,17 @@
-
+var error_count = 0;
 var reload = function() {
   $.ajax({
     url: '/serv',
     success: function(res) {
       if (res) {
-        $('#log ul').html(res);
+        var statement = $(res).hide();
+        $('#log ul').prepend(statement);
+        statement.slideDown('fast');
       }
       reload();
     },
     error: function() {
+      if (++error_count == 5) { return false; }
       reload();
     }
   });
