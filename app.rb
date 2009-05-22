@@ -57,20 +57,19 @@ get '/logout' do
 end
 
 get '/serv' do
-  start = Time.now
+  File.unlink('activate') if File.exist?('activate')
+
   # FIXME: high load
+  start = Time.now
   loop do
     break if (Time.now - start) > 30
     break if options.activate?
   end
 
   if options.activate?
-    File.unlink('activate')
-    Rack::Response.new.finish do |res|
-      res.write options.new_statement
-    end
+    options.new_statement
   else
-    Rack::Response.new('', 304).finish
+    halt 304
   end
 end
 
