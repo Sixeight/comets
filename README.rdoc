@@ -7,7 +7,7 @@ Comets is a simple chat application using comet.
 == Installation
 
   $ mkdir db
-  $ rackup -s mongrel -p 4567 -E none config.ru
+  $ ruby -s mongrel app.rb
 
 access http://localhost:4567
 
