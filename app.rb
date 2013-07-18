@@ -10,7 +10,7 @@ require File.dirname(__FILE__) + '/models/statements'
 
 enable :sessions
 set :haml, { :attr_wrapper => '"', :escape_html => true }
-set :activate?, lambda { File.exist?('activate') }
+set :activate, lambda { File.exist?('activate') }
 set :statements, lambda { Statements.reverse_order(:created_at) }
 set :new_statement, lambda {
   statement = statements.first
