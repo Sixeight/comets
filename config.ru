@@ -1,5 +1,5 @@
 #! /usr/bin/env ruby
-# -*- coding: utf-9 -*-
+# -*- coding: utf-8 -*-
 
 require 'app'
 run Sinatra::Application
